@@ -134,7 +134,7 @@ class Game:
             self.g4p = temp3
 
     def printMap(self, ghosts):
-        if ghosts == True:
+        if ghosts:
             self.moveGhosts()
         for x in range(0, self.map_height):
             temp2 = ""
@@ -145,7 +145,7 @@ class Game:
         print("Score: " + str(self.score))
 
     def move(self, direction):
-        if not self.board[self.pacman_pos + direction] == self.wall and self.game_over == False:
+        if not self.board[self.pacman_pos + direction] == self.wall and not self.game_over:
             if self.board[self.pacman_pos + direction] == self.pellet:
                 self.score += 10
             if self.board[self.pacman_pos + direction] == self.pellet:
