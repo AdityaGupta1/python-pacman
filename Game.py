@@ -46,10 +46,10 @@ class Game:
         self.game_over = False
 
     def moveGhosts(self):
-        self.moveGhost1()
-        self.moveGhost2()
-        self.moveGhost3()
-        self.moveGhost4()
+        self.moveGhost(1)
+        self.moveGhost(2)
+        self.moveGhost(3)
+        self.moveGhost(4)
 
     def getRandomPos(self):
         random = seed.randint(1, 4)
@@ -64,109 +64,57 @@ class Game:
             direction = -self.map_width
         return direction
 
-
-    def moveGhost1(self):
+    def moveGhost(self, ghost):
+        temp2 = 0
+        temp3 = 0
+        if ghost == 1:
+            temp2 = self.ghost1_pos
+            temp3 = self.g1p
+        elif ghost == 2:
+            temp2 = self.ghost2_pos
+            temp3 = self.g2p
+        elif ghost == 3:
+            temp2 = self.ghost3_pos
+            temp3 = self.g3p
+        elif ghost == 4:
+            temp2 = self.ghost4_pos
+            temp3 = self.g4p
         temp = False
-        direction = 0
         while temp == False:
             direction = self.getRandomPos()
-            if not self.board[self.ghost1_pos + direction] == self.wall:
-                if self.board[self.ghost1_pos + direction] == self.pellet:
+            if not self.board[temp2 + direction] == self.wall:
+                if self.board[temp2 + direction] == self.pellet:
                     g1p = True
                 else:
                     g1p = False
 
-                if self.board[self.ghost1_pos + direction] == self.pacman:
-                     self.gameOver()
+                if self.board[temp2 + direction] == self.pacman:
+                    self.gameOver()
 
-                self.board[self.ghost1_pos + direction] = self.ghost
+                self.board[temp2 + direction] = self.ghost
 
-                if g1p == True:
-                    self.board[self.ghost1_pos] = self.pellet
+                if g1p:
+                    self.board[temp2] = self.pellet
                 else:
-                    self.board[self.ghost1_pos] = self.empty
-                self.ghost1_pos += direction
-                self.board[self.ghost1_pos] = self.ghost
+                    self.board[temp2] = self.empty
+                temp2 += direction
+                self.board[temp2] = self.ghost
                 temp = True
             else:
                 temp = False
 
-    def moveGhost2(self):
-        temp = False
-        direction = 0
-        while temp == False:
-            direction = self.getRandomPos()
-            if not self.board[self.ghost2_pos + direction] == self.wall:
-                if self.board[self.ghost2_pos + direction] == self.pellet:
-                    g2p = True
-                else:
-                    g2p = False
-
-                if self.board[self.ghost2_pos + direction] == self.pacman:
-                     self.gameOver()
-
-                self.board[self.ghost2_pos + direction] = self.ghost
-
-                if g2p == True:
-                    self.board[self.ghost2_pos] = self.pellet
-                else:
-                    self.board[self.ghost2_pos] = self.empty
-                self.ghost2_pos += direction
-                temp = True
-            else:
-                temp = False
-
-    def moveGhost3(self):
-        temp = False
-        direction = 0
-        while temp == False:
-            direction = self.getRandomPos()
-            if not self.board[self.ghost3_pos + direction] == self.wall:
-                if self.board[self.ghost3_pos + direction] == self.pellet:
-                    g3p = True
-                else:
-                    g3p = False
-
-                if self.board[self.ghost3_pos + direction] == self.pacman:
-                     self.gameOver()
-
-                self.board[self.ghost3_pos + direction] = self.ghost
-
-                if g3p == True:
-                    self.board[self.ghost3_pos] = self.pellet
-                else:
-                    self.board[self.ghost3_pos] = self.empty
-                self.ghost3_pos += direction
-                temp = True
-            else:
-                temp = False
-
-    def moveGhost4(self):
-        temp = False
-        direction = 0
-        while temp == False:
-            direction = self.getRandomPos()
-            if not self.board[self.ghost4_pos + direction] == self.wall:
-                if self.board[self.ghost4_pos + direction] == self.pellet:
-                    g4p = True
-                else:
-                    g4p = False
-
-                if self.board[self.ghost4_pos + direction] == self.pacman:
-                     self.gameOver()
-
-                self.board[self.ghost4_pos + direction] = self.ghost
-
-                if g4p == True:
-                    self.board[self.ghost4_pos] = self.pellet
-                else:
-                    self.board[self.ghost4_pos] = self.empty
-                self.ghost4_pos += direction
-                temp = True
-            else:
-                temp = False
-
-
+        if ghost == 1:
+            self.ghost1_pos = temp2
+            self.g1p = temp3
+        elif ghost == 2:
+            self.ghost2_pos = temp2
+            self.g2p = temp3
+        elif ghost == 3:
+            self.ghost3_pos = temp2
+            self.g3p = temp3
+        elif ghost == 4:
+            self.ghost4_pos = temp2
+            self.g4p = temp3
 
     def printMap(self, ghosts):
         if ghosts == True:
