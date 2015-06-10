@@ -9,7 +9,6 @@ class Game:
         self.text = Text(self.root, height = 1, width = 50)
         self.text.pack()
         self.text.insert(END, "Use the arrow keys to control PacMan!")
-        self.root.lift(aboveThis=None)
         self.root.bind('<KeyPress-Up>', self.moveUp)
         self.root.bind('<KeyPress-Right>', self.moveRight)
         self.root.bind('<KeyPress-Left>', self.moveLeft)
@@ -66,10 +65,8 @@ class Game:
         self.game_over = False
 
     def moveGhosts(self):
-        self.moveGhost(1)
-        self.moveGhost(2)
-        self.moveGhost(3)
-        self.moveGhost(4)
+        for x in range(1, 5):
+            self.moveGhost(x)
 
     def getRandomPos(self):
         random = seed.randint(1, 4)
@@ -104,16 +101,16 @@ class Game:
             direction = self.getRandomPos()
             if not self.board[temp2 + direction] == self.wall:
                 if self.board[temp2 + direction] == self.pellet:
-                    g1p = True
+                    temp3 = True
                 else:
-                    g1p = False
+                    temp3 = False
 
                 if self.board[temp2 + direction] == self.pacman:
                     self.gameOver()
 
                 self.board[temp2 + direction] = self.ghost
 
-                if g1p:
+                if temp3:
                     self.board[temp2] = self.pellet
                 else:
                     self.board[temp2] = self.empty
@@ -151,6 +148,8 @@ class Game:
         if not self.board[self.pacman_pos + direction] == self.wall and self.game_over == False:
             if self.board[self.pacman_pos + direction] == self.pellet:
                 self.score += 10
+            if self.board[self.pacman_pos + direction] == self.pellet:
+                self.gameOver()
             self.board[self.pacman_pos] = self.empty
             self.pacman_pos += direction
             self.board[self.pacman_pos] = self.pacman
