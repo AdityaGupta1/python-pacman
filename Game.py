@@ -14,6 +14,11 @@ class Game:
         self.root.bind('<KeyPress-Right>', self.moveRight)
         self.root.bind('<KeyPress-Left>', self.moveLeft)
         self.root.bind('<KeyPress-Down>', self.moveDown)
+        self.wall = "■"
+        self.pellet = "◦"
+        self.pacman = "P"
+        self.ghost = "G"
+        self.empty = " "
         self.board = \
         ["■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■",
          "■", "G", "◦", "◦", "◦", "◦", "◦", "◦", "◦", "◦", "◦", "◦", "◦", "G", "■",
@@ -28,17 +33,32 @@ class Game:
          "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■", "■"]
         self.map_width = 15
         self.map_height = 11
-        self.pacman_pos = 82
-        self.ghost1_pos = 16
-        self.ghost2_pos = 28
-        self.ghost3_pos = 136
-        self.ghost4_pos = 148
+
+        self.pacman_pos = 0
+        for x in range (0, len(self.board) - 1):
+            if self.board[x] == self.pacman:
+                self.pacman_pos = x
+
+        self.ghost1_pos = 0
+        self.ghost2_pos = 0
+        self.ghost3_pos = 0
+        self.ghost4_pos = 0
+
+        temp = 0
+
+        for x in range (0, len(self.board) - 1):
+            if self.board[x] == self.ghost:
+                temp += 1
+                if temp == 1:
+                    self.ghost1_pos = x
+                elif temp == 2:
+                    self.ghost2_pos = x
+                elif temp == 3:
+                    self.ghost3_pos = x
+                elif temp == 4:
+                    self.ghost4_pos = x
+
         self.score = 0
-        self.wall = "■"
-        self.pellet = "◦"
-        self.pacman = "P"
-        self.ghost = "G"
-        self.empty = " "
         self.g1p = True
         self.g2p = True
         self.g3p = True
