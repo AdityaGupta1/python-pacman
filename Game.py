@@ -187,41 +187,26 @@ class Game:
             print(temp2)
         print("Score: " + str(self.score))
 
-    def moveUp(self, evt):
-        if not self.board[self.pacman_pos - self.map_width] == self.wall and self.game_over == False:
-            if self.board[self.pacman_pos - self.map_width] == self.pellet:
+    def move(self, direction):
+        if not self.board[self.pacman_pos + direction] == self.wall and self.game_over == False:
+            if self.board[self.pacman_pos + direction] == self.pellet:
                 self.score += 10
             self.board[self.pacman_pos] = self.empty
-            self.pacman_pos -= self.map_width
+            self.pacman_pos += direction
             self.board[self.pacman_pos] = self.pacman
             self.printMapWithGhosts()
+
+    def moveUp(self, evt):
+        self.move(-self.map_width)
 
     def moveRight(self, evt):
-        if not self.board[self.pacman_pos + 1] == self.wall and self.game_over == False:
-            if self.board[self.pacman_pos + 1] == self.pellet:
-                self.score += 10
-            self.board[self.pacman_pos] = self.empty
-            self.pacman_pos += 1
-            self.board[self.pacman_pos] = self.pacman
-            self.printMapWithGhosts()
+        self.move(1)
 
     def moveDown(self, evt):
-        if not self.board[self.pacman_pos + self.map_width] == self.wall and self.game_over == False:
-            if self.board[self.pacman_pos + self.map_width] == self.pellet:
-                self.score += 10
-            self.board[self.pacman_pos] = self.empty
-            self.pacman_pos += self.map_width
-            self.board[self.pacman_pos] = self.pacman
-            self.printMapWithGhosts()
+        self.move(self.map_width)
 
     def moveLeft(self, evt):
-        if not self.board[self.pacman_pos - 1] == self.wall and self.game_over == False:
-            if self.board[self.pacman_pos - 1] == self.pellet:
-                self.score += 10
-            self.board[self.pacman_pos] = self.empty
-            self.pacman_pos -= 1
-            self.board[self.pacman_pos] = self.pacman
-            self.printMapWithGhosts()
+        self.move(-1)
 
     def gameOver(self):
         self.game_over = True
