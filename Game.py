@@ -168,17 +168,9 @@ class Game:
 
 
 
-    def printMap(self, *args):
-        for x in range(0, self.map_height):
-            temp2 = ""
-            for y in range(0, self.map_width):
-                temp = (self.map_width * x)
-                temp2 = temp2 + self.board[temp + y] + " "
-            print(temp2)
-        print("Score: " + str(self.score))
-
-    def printMapWithGhosts(self, *args):
-        self.moveGhosts()
+    def printMap(self, ghosts):
+        if ghosts == True:
+            self.moveGhosts()
         for x in range(0, self.map_height):
             temp2 = ""
             for y in range(0, self.map_width):
@@ -194,7 +186,7 @@ class Game:
             self.board[self.pacman_pos] = self.empty
             self.pacman_pos += direction
             self.board[self.pacman_pos] = self.pacman
-            self.printMapWithGhosts()
+            self.printMap(True)
 
     def moveUp(self, evt):
         self.move(-self.map_width)
